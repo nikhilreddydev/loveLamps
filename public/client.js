@@ -10,9 +10,7 @@ if(!localStorage.getItem("user")) {
     localStorage.setItem("user", JSON.stringify(obj));
 }
 
-const socket = io({
-    transports: ['websocket'],
-});
+const socket = io();
 
 const user = JSON.parse(localStorage.getItem("user"));
 

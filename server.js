@@ -3,7 +3,7 @@ const { createServer } = require("http");
 const { Server } = require("socket.io");
 require("dotenv").config();
 
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 3000;
 const app = express();
 app.use(express.static(__dirname + "/public"));
 
@@ -28,6 +28,7 @@ io.on('connection', (socket) => {
     
     socket.username = username;
     socket.connection = connection;
+    socket.glow = false;
 
     // add to users table
     users[username] = socket;
@@ -36,6 +37,11 @@ io.on('connection', (socket) => {
     if(users.hasOwnProperty(connection)) {
       users[connection].emit("connection-status", "online");
       socket.emit("connection-status", "online");
+
+      // if connection is thinking about you, send signal(true)
+      if(users[connection].glow) {
+        socket.emit("toggle-lamp", true);
+      }
     }
 
     console.log(`${username} has connected`);
@@ -45,6 +51,7 @@ io.on('connection', (socket) => {
   socket.on("thinking-about-connection", (data) => {
     let username = data.user.username;
     let connection = data.user.connection;
+    socket.glow = data.signal;
 
     if(users.hasOwnProperty(connection)) {
       let toUser = users[connection];
