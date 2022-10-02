@@ -3,7 +3,7 @@ const { createServer } = require("http");
 const { Server } = require("socket.io");
 require("dotenv").config();
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 80;
 const app = express();
 app.use(express.static(__dirname + "/public"));
 
@@ -69,5 +69,5 @@ io.on('connection', (socket) => {
 });
 
 httpServer.listen(port, () => {
-  console.log(`Listtening on port ${port}`);
+  console.log(`Listening on port ${port}`);
 });
