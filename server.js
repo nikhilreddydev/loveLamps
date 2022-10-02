@@ -37,6 +37,8 @@ io.on('connection', (socket) => {
       users[connection].emit("connection-status", "online");
       socket.emit("connection-status", "online");
     }
+
+    console.log(`${username} has connected`);
   });
 
   // recieve signal and emit to connection
@@ -61,6 +63,8 @@ io.on('connection', (socket) => {
     }
 
     delete users.username;
+
+    console.log(`${username} has disconnected`);
   })
 });
 
