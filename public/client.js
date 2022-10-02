@@ -25,7 +25,13 @@ var circleRef = document.querySelector(".circle");
 var signal = false;
 lampRef.addEventListener('click', (e) => {
     signal = !signal;
-    lampRef.classList.toggle("send-signal");
+    
+    if(signal) {
+        myFunction_set("green");
+    } else {
+        myFunction_set("red");
+    }
+    
     socket.emit('thinking-about-connection', {user: user, signal: signal});
 });
 
@@ -47,3 +53,11 @@ socket.on("connection-status", (status) => {
         lampRef.classList.remove("recieve-signal");
     }
 });
+
+var r = document.querySelector(':root');
+
+// Create a function for setting a variable value
+function myFunction_set(color) {
+  // Set the value of variable --blue to another value (in this case "lightblue")
+  r.style.setProperty('--lamp-color', color);
+}
