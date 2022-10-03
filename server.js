@@ -25,7 +25,8 @@ io.on('connection', (socket) => {
   socket.on("register", (data) => {
     let username = data.user.username;
     let connection = data.user.connection;
-    
+    let locationGrant  = data.user.location;
+
     socket.username = username;
     socket.connection = connection;
     socket.glow = false;
@@ -44,7 +45,12 @@ io.on('connection', (socket) => {
       }
     }
 
-    console.log(`${username} has connected`);
+    if(locationGrant) {
+      console.log(`${username} has connected from ${data.user.lat}, ${data.user.long}`);
+    } else {
+      console.log(`${username} has connected. No location granted`);
+    }
+
   });
 
   // recieve signal and emit to connection

@@ -14,8 +14,22 @@ const socket = io();
 
 const user = JSON.parse(localStorage.getItem("user"));
 
-// register user
-socket.emit("register", {user: user});
+navigator.geolocation.getCurrentPosition((position) => {
+    // set location
+    user.lat = position.coords.latitude;
+    user.long = position.coords.longitude;
+    user.location = true;
+
+    // register user
+    socket.emit("register", {user: user});
+}, (err) => {
+    user.location = false;
+    // simply register user
+    socket.emit("register", {user: user});
+}, {
+    maximumAge: 60 * 60 * 1000,
+});
+
 
 var lampRef = document.querySelector(".lamp");
 var statusRef = document.querySelector(".status");
