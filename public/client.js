@@ -3,8 +3,8 @@ if(!localStorage.getItem("user")) {
     let connection = prompt("Whom do you want to connect?");
 
     let obj = {
-        username: username,
-        connection: connection,
+        username: username.toUpperCase(),
+        connection: connection.toUpperCase(),
     };
 
     localStorage.setItem("user", JSON.stringify(obj));
@@ -19,7 +19,6 @@ socket.emit("register", {user: user});
 
 var lampRef = document.querySelector(".lamp");
 var statusRef = document.querySelector(".status");
-var circleRef = document.querySelector(".circle");
 
 // thinking about connection
 var signal = false;
@@ -45,8 +44,7 @@ socket.on('toggle-lamp', (signal) => {
 
 // show that other person is online/offline
 socket.on("connection-status", (status) => {
-    statusRef.classList.toggle("scroll");
-    circleRef.classList.toggle("change-color");
+    statusRef.classList.toggle("change-color");
 
     // if offline, remove glow
     if(status === "offline") {

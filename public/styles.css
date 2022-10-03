@@ -18,23 +18,10 @@ body {
 }
 
 .status {
-    height: 15px;
-    width: 30px;
-    background-color: white;
-    border-radius: 30%;
-    display: flex;
-}
-
-.circle {
     height: 10px;
     width: 10px;
-    margin: 3px;
     border-radius: 50%;
     background-color: red;
-}
-
-.scroll {
-    justify-content: end;
 }
 
 .change-color {
