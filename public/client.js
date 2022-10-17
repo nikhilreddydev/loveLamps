@@ -66,10 +66,10 @@ socket.on("connection-status", (status) => {
     }
 });
 
-var r = document.querySelector(':root');
 
 // Create a function for setting a variable value
 function myFunction_set(color) {
   // Set the value of variable --blue to another value (in this case "lightblue")
-  r.style.setProperty('--lamp-color', color);
+    var r = document.querySelector(':root');
+    r.style.setProperty('--lamp-color', color);
 }
